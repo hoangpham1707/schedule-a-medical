@@ -1,0 +1,121 @@
+{
+    "home-header-content": {
+        "specialty": "Specialist",
+        "search-doctor": "Find doctors by specialty",
+        "health-facilities": "Health facilities",
+        "choose-hospital-clinic": "Choose a hospital or clinic",
+        "doctor": "Doctor",
+        "choose-good-doctor": "Choose a good doctor",
+        "medical-package": "Examination package",
+        "general-check": "General health check",
+        "support": "Support",
+        "welcome": "Welcome"
+    },
+    "home-header-banner": {
+        "medical-foundation": "MEDICAL FOUNDATION",
+        "health-care": "COMPREHENSIVE HEALTH CARE",
+        "find-medical-specialist": "Find a medical specialist",
+        "specialized-examination": "Specialized examination",
+        "remote-examination": "Remote examination",
+        "general examination": "General examination",
+        "medical-tests": "Medical tests",
+        "mental-health": "Mental health",
+        "dental-examination": "Dental examination",
+        "popular-specialties": "Popular Specialties",
+        "more": "More",
+        "medical-facilities": "Outstanding medical facilities",
+        "doctor-featured": "Doctor featured last week",
+        "hand-book": "Hand book"
+    },
+    "menu": {
+        "system": {
+            "header": "System",
+            "system-administrator": {
+                "header": "System Administrator",
+                "user-manage": "User manage",
+                "user-redux": "User redux",
+                "register-package-group-or-account": "Register service package for group/account"
+            },
+            "system-parameter": {
+                "header": "System-parameter"
+            }
+        },
+        "admin": {
+            "user": "User",
+            "user-manager": "User Manager",
+            "doctor-manager": "Doctor Manager",
+            "admin-manager": "Admin Manager",
+            "crud": "CRUD USER",
+            "crud-redux": "CRUD REDUX",
+            "clinic": "Clinic",
+            "clinic-manage": "Clinic Manage",
+            "specialty": "Specialty",
+            "specialty-manage": "Specialty Manage",
+            "handbook": "Handbook",
+            "handbook-manage": "Handbook Manage"
+        },
+        "doctor": {
+            "schedule-manage": "Schedule Manage",
+            "schedule": "Schedule",
+            "introduce": "Introduce",
+            "create-doctor-info": "CREATE DOCTOR INFORMATION",
+            "price": "Price",
+            "payment": "Payment method",
+            "province": "Province",
+            "clinic-name": "Clinic name",
+            "clinic-address": "Clinic address",
+            "note": "Note"
+        }
+    },
+    "user-manager": {
+        "add": "Add User",
+        "email": "Email",
+        "password": "Password",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "address": "Address",
+        "phone-number": "Phone Number",
+        "gender": "Gender",
+        "role": "Role",
+        "position": "Position",
+        "image": "Image",
+        "save": "Save User",
+        "upload-image": "Upload Image"
+    },
+    "manage-schedule": {
+        "title": "Manage doctor's examination schedule",
+        "choose-date": "Choose Date",
+        "choose-doctor": "Choose Doctor",
+        "save-info": "Save Information",
+        "examination-schedule": "Examination Schedule",
+        "no-scheduled": "There are no appointments available during this time!"
+    },
+    "button": {
+        "save-info": "Save Information",
+        "create-info": "Create Information"
+    },
+    "patient": {
+        "choose": "Choose ",
+        "book-free": " and book free!",
+        "doctor": {
+            "clinic-address": "Clinic's address",
+            "examination-price": "Examination price:",
+            "see-details": "See details",
+            "hide-less": "Hide",
+            "modal": {
+                "medical-examination-schedule": "Medical examination schedule information",
+                "full-name": "First and last name",
+                "phone-number": "Phone number",
+                "email": "Email address",
+                "address": "Address",
+                "reason": "Reason for examination",
+                "birthday": "Date of birth",
+                "gender": "Sex",
+                "confirm": "Confirm",
+                "cannel": "Cannel"
+            }
+        },
+        "free-appointment": "Free appointment",
+        "examination-price": "Examination price: "
+    }
+}
