@@ -17,7 +17,7 @@ let createSpecialty = (data) => {
                 })
                 resolve({
                     errCode: 0,
-                    errMessage: 'Create Specialty Success!!!',
+                    errMessage: 'Create Specialty Success!',
                 })
             }
         } catch (error) {
