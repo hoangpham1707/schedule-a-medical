@@ -205,7 +205,12 @@ class DoctorManage extends Component {
                 isData: false,
                 nameClinic: '',
                 addressClinic: '',
-                note: ''
+                note: '',
+                selectedPrice: '',
+                selectedPayment: '',
+                selectedProvince: '',
+                selectedSpecialty: '',
+                selectedClinic: '',
             })
         }
         console.log("Id doctor:", res);
@@ -285,7 +290,7 @@ class DoctorManage extends Component {
     }
     render() {
         let { isData } = this.state;
-        console.log("state:", this.state);
+        // console.log("state:", this.state);
         return (
             <div className='manage-doctor-container'>
                 <div className='manage-doctor-title'>
@@ -382,7 +387,7 @@ class DoctorManage extends Component {
                             onChange={this.handleChangeSelectDoctorInfo}
                             options={this.state.listClinic}
                             placeholder={<FormattedMessage id='menu.admin.clinic'></FormattedMessage>}
-                            name='selectedSpecialty'
+                            name='selectedClinic'
                         />
                     </div>
                 </div>

@@ -1,0 +1,84 @@
+.detail-clinic-container {
+    background: #eee !important;
+
+    .detail-clinic-body {
+        margin: 0 100px;
+        // background-color: #fff !important;
+        background: #eee !important;
+        display: flex;
+        flex-direction: column;
+
+
+        .des-clinic {
+            padding: 10px;
+            background-color: white !important;
+            margin: 10px 0;
+
+            h1,
+            h2,
+            h3 {
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            .name-clinic {
+                text-align: center;
+                text-transform: uppercase;
+                font-size: 15px;
+                font-weight: 600;
+            }
+
+            .address-clinic {
+                text-align: center;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+        }
+
+
+        .each-doctor {
+            display: flex;
+            width: 100%;
+            min-height: 300px;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 1px 6px #20212447;
+
+            .detail-content-left {
+                width: 50%;
+                border-right: 1px solid #ddd;
+                padding: 10px;
+
+                .profile-doctor-container {
+                    .down {
+                        padding: 5px;
+                    }
+                }
+            }
+
+            .detail-content-right {
+                width: 50%;
+                padding: 10px;
+
+                .doctor-schedule {
+                    .doctor-schedule-container {
+                        border-right: unset !important;
+                    }
+                }
+
+                .doctor-extra-info {
+                    border-top: 2px solid #ddd;
+                    margin-top: 10px;
+                    padding-top: 10px;
+
+                    .doctor-extra-info-container {
+                        padding-left: 0 !important;
+                    }
+                }
+
+            }
+        }
+    }
+}

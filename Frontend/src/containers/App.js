@@ -22,6 +22,7 @@ import ConfirmModal from '../components/ConfirmModal';
 import DetailDoctor from './Patient/Doctor/DetailDoctor';
 import VerifyBooking from './Patient/VerifyBooking';
 import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
+import DetailClinic from './Patient/Clinic/DetailClinic';
 
 
 
@@ -61,6 +62,7 @@ class App extends Component {
                                     <Route path={path.HOMEPAGE} exact component={(HomePage)} />
                                     <Route path={path.DETAIL_DOCTOR} exact component={(DetailDoctor)} />
                                     <Route path={path.DETAIL_SPECIALTY} exact component={(DetailSpecialty)} />
+                                    <Route path={path.DETAIL_CLINIC} exact component={(DetailClinic)} />
 
                                     <Route path={path.VERITY_BOOKING_DOCTOR} exact component={(VerifyBooking)} />
 
