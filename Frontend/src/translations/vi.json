@@ -51,6 +51,8 @@
             "clinic-manage": "Quản lý phòng khám",
             "specialty": "Chuyên khoa",
             "specialty-manage": "Quản lý chuyên khoa",
+            "name-specialty": "Tên chuyên khoa",
+            "image-specialty": "Ảnh chuyên khoa",
             "handbook": "Cẩm nang",
             "handbook-manage": "Quản lý cẩm nang"
         },

@@ -10,6 +10,7 @@ import './ProfileDoctor.scss'
 import { profileDoctor } from '../../../services/doctorService';
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 class ProfileDoctor extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class ProfileDoctor extends Component {
     }
 
     async componentDidMount() {
+
         let data = await this.getInfoDoctor(this.props.doctorId);
         this.setState({
             dataProfile: data
@@ -28,6 +30,10 @@ class ProfileDoctor extends Component {
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.doctorId !== this.props.doctorId) {
+            let data = await this.getInfoDoctor(this.props.doctorId);
+            this.setState({
+                dataProfile: data
+            })
             // this.getInfoDoctor(this.props.doctorId);
         }
     }
@@ -68,7 +74,7 @@ class ProfileDoctor extends Component {
 
     render() {
         let { dataProfile } = this.state;
-        let { language, isShowDes, dataTime } = this.props;
+        let { language, isShowDes, dataTime, isShowLinkDetail, isShowPrice, doctorId } = this.props;
         let nameVi = '', nameEn = '';
         if (dataProfile && dataProfile.positionData) {
             nameVi = `${dataProfile.positionData.value_Vi}, ${dataProfile.lastName} ${dataProfile.firstName}`;
@@ -107,22 +113,30 @@ class ProfileDoctor extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='price'>
-                    <FormattedMessage id='patient.examination-price' />
-                    {dataProfile && dataProfile.Doctor_Info && language === languages.VI &&
-                        <NumberFormat className='currency'
-                            value={dataProfile.Doctor_Info.priceTypeData.value_Vi} displayType={'text'}
-                            thousandSeparator={true} suffix={'VND'}
-                        />
-                    }
+                {isShowLinkDetail === true &&
+                    <div className='view-detail-doctor'>
+                        <Link to={`/detail-doctor/${doctorId}`}><FormattedMessage id='patient.doctor.see-details'></FormattedMessage></Link>
+                    </div>
+                }
 
-                    {dataProfile && dataProfile.Doctor_Info && language === languages.EN &&
-                        <NumberFormat className='currency'
-                            value={dataProfile.Doctor_Info.priceTypeData.value_En} displayType={'text'}
-                            thousandSeparator={true} suffix={'$'}
-                        />
-                    }
-                </div>
+                {isShowPrice === true &&
+                    <div className='price'>
+                        <FormattedMessage id='patient.examination-price' />
+                        {dataProfile && dataProfile.Doctor_Info && language === languages.VI &&
+                            <NumberFormat className='currency'
+                                value={dataProfile.Doctor_Info.priceTypeData.value_Vi} displayType={'text'}
+                                thousandSeparator={true} suffix={'VND'}
+                            />
+                        }
+
+                        {dataProfile && dataProfile.Doctor_Info && language === languages.EN &&
+                            <NumberFormat className='currency'
+                                value={dataProfile.Doctor_Info.priceTypeData.value_En} displayType={'text'}
+                                thousandSeparator={true} suffix={'$'}
+                            />
+                        }
+                    </div>
+                }
             </div>
         );
     }
