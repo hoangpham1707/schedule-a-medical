@@ -62,7 +62,8 @@ let saveInfoDoctor = (inputData) => {
         try {
             if (!inputData.doctorId || !inputData.contentHTML || !inputData.contentMarkdown || !inputData.action
                 || !inputData.selectedPrice || !inputData.selectedPayment || !inputData.selectedProvince
-                || !inputData.nameClinic || !inputData.addressClinic || !inputData.note) {
+                || !inputData.nameClinic || !inputData.addressClinic || !inputData.note
+                || !inputData.specialtyId) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing parameter!'
@@ -73,7 +74,9 @@ let saveInfoDoctor = (inputData) => {
                         contentHTML: inputData.contentHTML,
                         contentMarkdown: inputData.contentMarkdown,
                         description: inputData.description,
-                        doctorId: inputData.doctorId
+                        doctorId: inputData.doctorId,
+                        specialtyId: inputData.specialtyId,
+                        clinicId: inputData.clinicId
                     });
                 } else if (inputData.action === 'EDIT') {
                     let doctorMarkdown = await db.Markdown.findOne({
@@ -85,6 +88,8 @@ let saveInfoDoctor = (inputData) => {
                         doctorMarkdown.contentHTML = inputData.contentHTML;
                         doctorMarkdown.contentMarkdown = inputData.contentMarkdown;
                         doctorMarkdown.description = inputData.description;
+                        doctorMarkdown.specialtyId = inputData.specialtyId;
+                        doctorMarkdown.clinicId = inputData.clinicId;
 
                         await doctorMarkdown.save();
                     }
@@ -105,6 +110,8 @@ let saveInfoDoctor = (inputData) => {
                     doctorInfo.addressClinic = inputData.addressClinic;
                     doctorInfo.nameClinic = inputData.nameClinic;
                     doctorInfo.note = inputData.note;
+                    doctorInfo.specialtyId = inputData.specialtyId;
+                    doctorInfo.clinicId = inputData.clinicId;
                     await doctorInfo.save();
 
                 } else {
@@ -116,7 +123,9 @@ let saveInfoDoctor = (inputData) => {
                         provinceId: inputData.selectedProvince,
                         addressClinic: inputData.addressClinic,
                         nameClinic: inputData.nameClinic,
-                        note: inputData.note
+                        note: inputData.note,
+                        specialtyId: inputData.specialtyId,
+                        clinicId: inputData.clinicId,
                     });
                 }
 

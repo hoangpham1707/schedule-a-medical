@@ -21,6 +21,7 @@ import CustomScrollbars from '../components/CustomScrollbars';
 import ConfirmModal from '../components/ConfirmModal';
 import DetailDoctor from './Patient/Doctor/DetailDoctor';
 import VerifyBooking from './Patient/VerifyBooking';
+import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
 
 
 
@@ -59,6 +60,8 @@ class App extends Component {
                                     <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
                                     <Route path={path.HOMEPAGE} exact component={(HomePage)} />
                                     <Route path={path.DETAIL_DOCTOR} exact component={(DetailDoctor)} />
+                                    <Route path={path.DETAIL_SPECIALTY} exact component={(DetailSpecialty)} />
+
                                     <Route path={path.VERITY_BOOKING_DOCTOR} exact component={(VerifyBooking)} />
 
                                 </Switch>

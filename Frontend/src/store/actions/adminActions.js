@@ -2,6 +2,7 @@ import actionTypes from './actionTypes';
 import { toast } from 'react-toastify'
 import { getAllCode } from '../../services/allCodeService';
 import { getTopDoctor, getAllDoctors, saveInfoDoctor, detailDoctor } from '../../services/doctorService';
+import { getAllSpecialty } from '../../services/specialtyService';
 import { createUserService, getAllUser, deleteUserService, editUserService } from '../../services/userService'
 //gender
 export const fetchGenderStart = () => {
@@ -110,7 +111,7 @@ export const fetchAllUserStart = () => {
     return async (dispatch, getState) => {
         try {
             let res = await getAllUser('ALL');
-            console.log('Check get all:', res);
+            // console.log('Check get all:', res);
             if (res && res.errCode === 0) {
                 dispatch(fetchGetAllUserSuccess(res.users));
             } else {
@@ -161,7 +162,7 @@ export const editUser = (data) => {
     return async (dispatch, getState) => {
         try {
             let res = await editUserService(data);
-            console.log('Check edit:', res);
+            // console.log('Check edit:', res);
             if (res && res.errCode === 0) {
                 toast.success("Sửa thành công!")
                 dispatch(editUserSuccess());
@@ -190,7 +191,7 @@ export const topDoctor = () => {
             if (res && res.errCode === 0) {
                 dispatch(topDoctorSuccess(res.data))
             }
-            console.log('doctor1:', res);
+            // console.log('doctor1:', res);
         } catch (error) {
             dispatch(topDoctorFailed());
             console.log("Start err: ", error);
@@ -236,6 +237,8 @@ export const infoDoctor = (data) => {
             if (res && res.errCode === 0) {
                 toast.success("Thêm thành công!")
                 dispatch(saveInfoDoctorSuccess())
+            } else {
+                toast.error("Thêm lỗi!")
             }
             // console.log('doctor1:', res);
         } catch (error) {
@@ -257,7 +260,7 @@ export const fetchDetailDoctor = (id) => {
     return async (dispatch, getState) => {
         try {
             let res = await detailDoctor(id);
-            console.log('Check get all:', res);
+            // console.log('Check get all:', res);
             if (res && res.errCode === 0) {
                 dispatch(fetchDetailDoctorSuccess(res.data));
             } else {
@@ -303,20 +306,25 @@ export const scheduleHoursDoctorFailed = () => ({
 })
 
 //Doctor Info
-export const getRequiredDoctorPrice = () => {
+export const getRequiredDoctor = () => {
     return async (dispatch, getState) => {
         try {
             let resPrice = await getAllCode("PRICE");
             let resPayment = await getAllCode("PAYMENT");
             let resProvince = await getAllCode("PROVINCE");
+            let resSpecialty = await getAllSpecialty();
+            // let resClinic=await get
+
             if (resPrice && resPrice.errCode === 0 &&
                 resPayment && resPayment.errCode === 0 &&
-                resProvince && resProvince.errCode === 0) {
+                resProvince && resProvince.errCode === 0 &&
+                resSpecialty && resSpecialty.errCode === 0) {
 
                 let data = {
                     resPrice: resPrice.data,
                     resPayment: resPayment.data,
-                    resProvince: resProvince.data
+                    resProvince: resProvince.data,
+                    resSpecialty: resSpecialty.data
                 }
                 dispatch(getRequiredDoctorSuccess(data));
             } else {

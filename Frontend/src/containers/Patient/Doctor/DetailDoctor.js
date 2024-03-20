@@ -5,7 +5,7 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import * as actions from "../../../store/actions";
 import { languages } from '../../../utils';
 import './DetailDoctor.scss'
-import { detailDoctor } from '../../../services/doctorService';
+
 import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfo from './DoctorExtraInfo';
 class DetailDoctor extends Component {

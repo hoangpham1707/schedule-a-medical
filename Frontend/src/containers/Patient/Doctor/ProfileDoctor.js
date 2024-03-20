@@ -67,10 +67,8 @@ class ProfileDoctor extends Component {
     }
 
     render() {
-        console.log("data profile:", this.state);
         let { dataProfile } = this.state;
         let { language, isShowDes, dataTime } = this.props;
-        console.log("dataTime:", dataTime);
         let nameVi = '', nameEn = '';
         if (dataProfile && dataProfile.positionData) {
             nameVi = `${dataProfile.positionData.value_Vi}, ${dataProfile.lastName} ${dataProfile.firstName}`;

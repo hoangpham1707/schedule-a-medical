@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { changeLanguageApp } from '../../../store/actions'
 import { FormattedMessage } from 'react-intl';
 import { languages } from '../../../utils';
-import specialtyImg from '../../../assets/specialty/3.jpg'
 import * as actions from '../../../store/actions'
 
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';

@@ -56,9 +56,20 @@
 
     .section-body {
         .section-img {
+            margin-bottom: 5px;
+
             &.health-facility-img {
                 width: 300px;
                 height: 193px;
+            }
+
+            &.out-specialty-img {
+                width: 300px;
+                height: 193px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                cursor: pointer;
             }
 
             &.out-standing-img {
