@@ -67,7 +67,8 @@
             "province": "Tỉnh thành",
             "clinic-name": "Tên phòng khám",
             "clinic-address": "Địa chỉ phòng khám",
-            "note": "Ghi chú"
+            "note": "Ghi chú",
+            "patient": "Quản lý bệnh nhân"
         }
     },
     "user-manager": {

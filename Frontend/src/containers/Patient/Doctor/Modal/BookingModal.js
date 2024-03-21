@@ -135,7 +135,7 @@ class BookingModal extends Component {
             email: this.state.email,
             address: this.state.address,
             reason: this.state.reason,
-            date: date,
+            date: this.props.dataTime.date,
             gender: this.state.gender,
             selectedGender: this.state.selectedGender.value,
             doctorId: this.state.doctorId,
@@ -149,6 +149,18 @@ class BookingModal extends Component {
         if (res && res.errCode === 0) {
             toast.success('Booking success!!!');
             this.props.toggleBookingModal(false);
+            this.setState({
+                fullName: '',
+                phoneNumber: '',
+                email: '',
+                address: '',
+                reason: '',
+                birthday: '',
+                gender: '',
+                selectedGender: '',
+                doctorId: '',
+                timeType: ''
+            })
         } else {
             toast.error('Booking error!!!');
         }

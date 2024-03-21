@@ -67,7 +67,8 @@
             "province": "Province",
             "clinic-name": "Clinic name",
             "clinic-address": "Clinic address",
-            "note": "Note"
+            "note": "Note",
+            "patient": "Patient management"
         }
     },
     "user-manager": {

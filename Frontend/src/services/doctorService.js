@@ -24,9 +24,16 @@ const detailExtraDoctor = (doctorId) => {
 const profileDoctor = (doctorId) => {
     return axios.get(`/api/get-profile-doctor?doctorId=${doctorId}`)
 }
+const getPatientToDoctorByDate = (data) => {
+    return axios.get(`/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`)
+}
+const sendRemedyService = (data) => {
+    return axios.post('/api/send-remedy', data)
+}
 export {
     getTopDoctor, getAllDoctors,
     saveInfoDoctor, detailDoctor,
     saveBulkSchedule, getScheduleDoctorByDate,
     detailExtraDoctor, profileDoctor,
+    getPatientToDoctorByDate, sendRemedyService
 }
