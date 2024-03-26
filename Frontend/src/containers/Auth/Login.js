@@ -8,6 +8,8 @@ import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import { divide } from 'lodash';
 import { handleLoginAPI } from '../../services/userService'
+// import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { USER_ROLE, languages } from '../../utils';
 
 
 class Login extends Component {
@@ -17,7 +19,8 @@ class Login extends Component {
             username: '',
             password: '',
             isShowPassword: false,
-            errMessage: ''
+            errMessage: '',
+            check: true
         }
     }
 
@@ -42,6 +45,7 @@ class Login extends Component {
         //console.log(event.target.value);
     }
 
+
     handleLogin = async () => {
         this.setState({
             errMessage: ''
@@ -57,7 +61,7 @@ class Login extends Component {
             }
             if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user)
-                console.log('Login ss');
+                // console.log('Login ss:', data);
             }
         } catch (error) {
             //console.log('hoang', error.response);
@@ -141,7 +145,8 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language
+        language: state.app.language,
+        userInfo: state.user.userInfo
     };
 };
 

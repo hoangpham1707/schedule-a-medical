@@ -2,6 +2,7 @@ import { where } from "sequelize";
 import db from "../models";
 import _ from 'lodash';
 require('dotenv').config();
+import emailService from './emailService'
 
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
@@ -376,6 +377,89 @@ let getProfileDoctor = (doctorId) => {
         }
     })
 }
+
+let getListPatientForDoctor = (doctorId, date) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!doctorId || !date) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing parameter!',
+                })
+            } else {
+                let data = await db.Booking.findAll({
+                    where: {
+                        statusId: 'S2',
+                        doctorId: doctorId,
+                        date: date
+                    },
+                    include: [
+                        {
+                            model: db.User, as: 'patientData',
+                            attributes: ['email', 'firstName', 'address', 'gender'],
+                            include: [
+                                { model: db.AllCode, as: 'genderData', attributes: ['value_Vi', 'value_En'] },
+                            ]
+                        },
+                        {
+                            model: db.AllCode, as: 'timeTypeDataPatient',
+                            attributes: ['value_Vi', 'value_En'],
+                        }
+                    ],
+                    raw: false,
+                    nest: true
+                })
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Get List Patient for Doctor Success!',
+                    data
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+let sendRemedy = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.email || !data.doctorId || !data.patientId || !data.timeType || !data.imgBase64) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing parameter!',
+                })
+            } else {
+                //update patient status
+                let booking = await db.Booking.findOne({
+                    where: {
+                        doctorId: data.doctorId,
+                        patientId: data.patientId,
+                        timeType: data.timeType,
+                        statusId: 'S2'
+                    },
+                    raw: false
+                })
+
+                if (booking) {
+                    booking.statusId = 'S3'
+                    await booking.save()
+                }
+
+                //send email
+                // console.log("check data:", data);
+                await emailService.sendAttachment(data)
+
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Get List Patient for Doctor Success!',
+                    data
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 module.exports = {
     getTopDoctor: getTopDoctor,
     getAllDoctor: getAllDoctor,
@@ -384,5 +468,7 @@ module.exports = {
     bulkCreateSchedule: bulkCreateSchedule,
     getScheduleDoctorByDate: getScheduleDoctorByDate,
     getDetailExtraDoctor: getDetailExtraDoctor,
-    getProfileDoctor: getProfileDoctor
+    getProfileDoctor: getProfileDoctor,
+    getListPatientForDoctor: getListPatientForDoctor,
+    sendRemedy: sendRemedy
 }

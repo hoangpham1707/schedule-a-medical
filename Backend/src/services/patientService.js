@@ -13,7 +13,7 @@ let bookDoctor = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!data.email || !data.doctorId || !data.timeType || !data.date ||
-                !data.fullName || !data.timeString) {
+                !data.fullName || !data.timeString || !data.selectedGender || !data.address) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing parameter!'
@@ -32,7 +32,11 @@ let bookDoctor = (data) => {
                     where: { email: data.email },
                     defaults: {
                         email: data.email,
-                        roleId: 'R3'
+                        roleId: 'R3',
+                        gender: data.selectedGender,
+                        address: data.address,
+                        firstName: data.fullName,
+                        phoneNumber: data.phoneNumber
                     }
                 })
 

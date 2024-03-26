@@ -1,7 +1,8 @@
 import db from "../models"
 import bcrypt from 'bcrypt';
 const salt = bcrypt.genSaltSync(10);
-
+import { createJWT } from '../middleware/JWT'
+require('dotenv').config();
 let handleUserLogin = (email, password) => {
     return new Promise(async (resole, reject) => {
         try {
@@ -10,17 +11,25 @@ let handleUserLogin = (email, password) => {
             if (isExit) {
                 let user = await db.User.findOne({
                     where: { email: email },
-                    attributes: ['email', 'roleId', 'password', 'firstName', 'lastName'],
+                    attributes: ['id', 'email', 'roleId', 'password', 'firstName', 'lastName'],
                     raw: true
 
                 });
 
                 if (user) {
                     let check = await bcrypt.compareSync(password, user.password);
+                    let payload = {
+                        email: user.email,
+                        roleId: user.roleId,
+                        expiresIn: process.env.JWT_EXPIRES_IN
+                    }
+                    let token = createJWT(payload);
+                    // console.log('token:', token);
                     if (check) {
                         userData.errCode = 0;
                         userData.errMessage = 'OK';
                         delete user.password;
+                        userData.accessToken = token;
                         userData.user = user;
                     } else {
                         userData.errCode = 3;
@@ -81,6 +90,7 @@ let getAllUser = (id) => {
                 })
             }
             if (id && id !== 'ALL') {
+
                 users = await db.User.findOne({
                     where: { id: id },
                     attributes: {
@@ -133,7 +143,7 @@ let createUser = (data) => {
                 }
                 else {
                     let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-                    await db.User.create({
+                    let userNew = await db.User.create({
                         email: data.email,
                         password: hashPasswordFromBcrypt,
                         firstName: data.firstName,
@@ -145,9 +155,18 @@ let createUser = (data) => {
                         positionId: data.positionId,
                         image: data.image
                     })
+                    let payload = {
+                        email: data.email,
+                        roleId: data.roleId,
+                        expiresIn: process.env.JWT_EXPIRES_IN
+                    }
+                    let token = createJWT(payload);
                     resolve({
                         errCode: 0,
-                        message: 'OK'
+                        message: 'OK',
+                        // user: userNew,
+                        accessToken: token
+
                     });
                 }
             }

@@ -13,16 +13,18 @@ let handleLogin = async (req, res) => {
 
     let userData = await userService.handleUserLogin(email, password);
 
+    res.cookie('jwt', userData.accessToken, { httpOnly: true })
     return res.status(200).json({
         errCode: userData.errCode,
         message: userData.errMessage,
-        user: userData.user ? userData.user : {}
+        user: userData.user ? userData.user : {},
+        accessToken: userData.accessToken
     })
 }
 
 let handleGetAllUser = async (req, res) => {
     let id = req.query.id;
-
+    // console.log(req.userJWT);
     if (!id) {
         return res.status(200).json({
             errCode: 0,
@@ -30,7 +32,6 @@ let handleGetAllUser = async (req, res) => {
             users: []
         })
     }
-
     let users = await userService.getAllUser(id);
     // console.log(users);
     return res.status(200).json({

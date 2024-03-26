@@ -5,7 +5,7 @@ import HomeHeader from './HomeHeader';
 import Specialty from './Section/Specialty'
 import HealthFacilities from './Section/HealthFacilities';
 import OutStandingDoctor from './Section/OutStandingDoctor';
-import HandBook from './Section/HandBook';
+// import HandBook from './Section/HandBook';
 import About from './Section/About'
 import HomeFooter from './HomeFooter'
 import './HomePage.scss'
@@ -29,10 +29,9 @@ class HomePage extends Component {
                 <Specialty settings={settings}></Specialty>
                 <HealthFacilities settings={settings}></HealthFacilities>
                 <OutStandingDoctor settings={settings}></OutStandingDoctor>
-                <HandBook settings={settings}></HandBook>
                 <About></About>
                 <HomeFooter></HomeFooter>
-                <div style={{ height: '300px' }}></div>
+                {/* <div style={{ height: '300px' }}></div> */}
             </div>
         );
     }

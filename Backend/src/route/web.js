@@ -1,28 +1,24 @@
 import express from "express";
-import homeController from "../controllers/homeController";
+
 import userController from "../controllers/userController"
 import allCodeController from '../controllers/allCodeController'
 import doctorController from "../controllers/doctorController";
 import patientController from '../controllers/patientController'
 import specialtyController from '../controllers/specialtyController'
 import clinicController from '../controllers/clinicController'
+import { checkUserJWT, adminJWT, doctorJWT } from '../middleware/JWT'
 let router = express.Router();
 
+const middleware = (req, res, next) => {
+    console.log('calling middleware');
+    next()
+}
+
 let initWebRoutes = (app) => {
-    router.get('/', homeController.getHomePage)
-    router.get('/about', homeController.getAbout)
-    router.get('/crud', homeController.getCRUD)
-    router.post('/post-crud', homeController.postCRUD);
-    router.get('/get-crud', homeController.displayCRUD)
-
-    router.get('/edit-crud', homeController.getEditCRUD);
-    router.post('/update-crud', homeController.updateCRUD);
-    router.get('/delete-crud', homeController.deleteCRUD);
-
     //Admin
     router.post('/api/login', userController.handleLogin);
 
-    router.get('/api/get-all-user', userController.handleGetAllUser);
+    router.get('/api/get-all-user', checkUserJWT, adminJWT, userController.handleGetAllUser);
     router.post('/api/create-user', userController.handleCreateUser);
     router.put('/api/edit-user', userController.handleEditUser);
     router.delete('/api/delete-user', userController.handleDeleteUser);
@@ -39,18 +35,20 @@ let initWebRoutes = (app) => {
     router.get('/api/get-schedule-doctor-by-date', doctorController.getScheduleDoctorByDate);
     router.get('/api/get-detail-extra-doctor', doctorController.getDetailExtraDoctor);
     router.get('/api/get-profile-doctor', doctorController.getProfileDoctor);
+    router.get('/api/get-list-patient-for-doctor', checkUserJWT, doctorJWT, doctorController.getListPatientForDoctor);
+    router.post('/api/send-remedy', doctorController.sendRemedy);
 
     //Patient
     router.post('/api/patient-book-doctor', patientController.bookDoctor);
     router.post('/api/verify-book-doctor', patientController.verifyBookDoctor);
 
     //Specialty
-    router.post('/api/create-specialty', specialtyController.createSpecialty);
+    router.post('/api/create-specialty', checkUserJWT, adminJWT, specialtyController.createSpecialty);
     router.get('/api/get-all-specialty', specialtyController.getAllSpecialty);
     router.get('/api/get-detail-specialty', specialtyController.getDetailSpecialty);
 
     //Clinic
-    router.post('/api/create-clinic', clinicController.createClinic);
+    router.post('/api/create-clinic', checkUserJWT, adminJWT, clinicController.createClinic);
     router.get('/api/get-all-clinic', clinicController.getAllClinic);
     router.get('/api/get-detail-clinic', clinicController.getDetailClinic);
 

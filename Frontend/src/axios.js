@@ -1,12 +1,13 @@
 import axios from 'axios';
 import _ from 'lodash';
 import config from './config';
+import { toast } from 'react-toastify';
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_BACKEND_URL,
     // withCredentials: true
 });
-
+instance.defaults.withCredentials = true
 // const createError = (httpStatusCode, statusCode, errorMessage, problems, errorCode = '') => {
 //     const error = new Error();
 //     error.httpStatusCode = httpStatusCode;
@@ -40,7 +41,36 @@ instance.interceptors.response.use(
         //     return null;
         // }
         return response.data;
-    },
+    }, (error) => {
+        const status = error && error.response && error.response.status || 500;
+        console.log('status: ', status);
+        switch (status) {
+            case 401: {
+                toast.error('Unauthorized the user. Please login...')
+                return Promise.reject(error);
+            }
+            case 403: {
+                toast.error(`You don't permission to access this resource...`)
+                return Promise.reject(error);
+            }
+            case 400: {
+                return Promise.reject(error);
+            }
+            case 404: {
+                return Promise.reject(error);
+            }
+            case 409: {
+                return Promise.reject(error);
+            }
+            case 422: {
+                return Promise.reject(error);
+            }
+            default: {
+                toast.error(`You don't permission to access this resource...`)
+                return Promise.reject(error);
+            }
+        }
+    }
     // (error) => {
     //     const { response } = error;
     //     if (response == null) {

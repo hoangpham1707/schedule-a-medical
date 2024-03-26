@@ -16,7 +16,7 @@ let sendSimpleEmail = async (dataSend) => {
             rejectUnauthorized: false // Tắt xác nhận chứng chỉ
         }
     });
-    console.log('email: ' + process.env.EMAIL_APP + ' pass: ' + process.env.EMAIL_APP_PASSWORD);
+    // console.log('email: ' + process.env.EMAIL_APP + ' pass: ' + process.env.EMAIL_APP_PASSWORD);
 
     const info = await transporter.sendMail({
         from: '"Hoang HBT 👻" <hoanghbt2v3@gmail.com>', // sender address
@@ -24,6 +24,39 @@ let sendSimpleEmail = async (dataSend) => {
         subject: "Thông tin đặt lệnh khám bệnh", // Subject line
         text: "Hello world?", // plain text body
         html: getBodyHtmlEmail(dataSend)
+
+    });
+}
+
+let sendAttachment = async (dataSend) => {
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false, // Use `true` for port 465, `false` for all other ports
+        auth: {
+            user: process.env.EMAIL_APP,
+            pass: process.env.EMAIL_APP_PASSWORD,
+        },
+        tls: {
+            rejectUnauthorized: false // Tắt xác nhận chứng chỉ
+        }
+    });
+    // console.log('email: ' + process.env.EMAIL_APP + ' pass: ' + process.env.EMAIL_APP_PASSWORD);
+
+    const info = await transporter.sendMail({
+        from: '"Hoang HBT 👻" <hoanghbt2v3@gmail.com>', // sender address
+        to: dataSend.email, // list of receivers
+        subject: "Kết quả đặt lệnh khám bệnh", // Subject line
+        text: "Hello world?", // plain text body
+        html: getBodyHtmlEmailRemedy(dataSend),
+        attachments: [
+            {
+                filename: 'text1.jpeg',
+                content: dataSend.imgBase64.split("base64,")[1],
+                encoding: 'base64'
+            }
+        ]
+
 
     });
 }
@@ -63,6 +96,29 @@ let getBodyHtmlEmail = (dataSend) => {
 
 }
 
+let getBodyHtmlEmailRemedy = (dataSend) => {
+    let result = '';
+    if (dataSend.language === 'vi') {
+        result = `
+        <h3>Xin chào ${dataSend.patientName}!</h3>
+        <p>Bạn nhận được email này vì đã đặt lịch khám bệnh thành công từ web ...</p>
+        <p>Thông tin đặt lịch khám bệnh được gửi ở file đính kèm:</p>
+        
+        <div>Xin chân thành cảm ơn :))</div>
+        `
+    }
+    if (dataSend.language === 'en') {
+        result = `
+        <h3>Hello ${dataSend.patientName}!</h3>
+        <p>You have received this email because you booked an online medical appointment success from the web ...</p>
+        <p>Information for scheduling a medical examination is sent in the attached file:</p>
+       
+        <div>Sincerely thank :))</div>
+        `
+    }
+    return result;
+}
 module.exports = {
-    sendSimpleEmail: sendSimpleEmail
+    sendSimpleEmail: sendSimpleEmail,
+    sendAttachment: sendAttachment
 }
